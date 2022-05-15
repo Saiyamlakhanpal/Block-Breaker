@@ -9,7 +9,7 @@ using namespace std;
 // bar above -> barY = 45
 // ball above -> ballY = 430 
 float barX = 200, barY = 15, barWidth = 80, barheight = 5;
-float ballX = 235, ballY = 50, ballWH = 10, ballVelX = 0.1, ballVelY = -0.1;
+float ballX = 235, ballY = 50, ballWH = 10, ballVelX = 0.3, ballVelY = -0.3;
 const int brickAmount = 100;
 int score = 0, chances = 3, previousScore = 0, highestScore = 0;
 bool flag = true, flag2 = true;
@@ -126,7 +126,7 @@ void print(int a) {
 
 void message(bool a) {
     if (a == false) {
-        glRasterPos2f(20, 400);
+        glRasterPos2f(20, 300);
         stringstream ss;
         ss << previousScore;
         string s = "Game over. Your score: " + ss.str() + ". Click to start new game.";
@@ -194,6 +194,7 @@ void myDisplay(void) {
 
     print(score);
     createBricks();
+    glColor3ub(0, 0, 0);
     message(flag);
     completeMessage(flag2);
     /**/
@@ -375,8 +376,8 @@ void mouse(int button, int state, int x, int y) {
         if (state == GLUT_DOWN) {
             flag = true;
             if (ballVelX <= 0 && ballVelY >= 0) {
-                ballVelX = 0.1;
-                ballVelY = -0.1;
+                ballVelX = 0.3;
+                ballVelY = -0.3;
             }
             glutIdleFunc(moveBall);
         }

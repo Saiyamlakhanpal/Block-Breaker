@@ -11,12 +11,12 @@ C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block brea
 C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(96,25): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(133,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(146,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(235,25): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
 C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(236,25): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(237,25): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(255,41): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(258,28): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(320,49): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(323,36): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(380,31): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(381,32): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(254,41): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(257,28): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(319,49): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(322,36): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(379,31): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\CG Project\block breaker.cpp(380,32): warning C4305: '=': truncation from 'double' to 'float'
   CG Project.vcxproj -> C:\Users\Saiyam\Desktop\Assignments\CG\Projects\CG Project\x64\Debug\CG Project.exe
