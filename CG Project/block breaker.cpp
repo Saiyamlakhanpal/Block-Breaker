@@ -6,12 +6,14 @@
 #include<sstream>
 
 using namespace std;
-
-float barX = 200, barY = 465, barWidth = 80, barheight = 5;
-float ballX = 235, ballY = 430, ballWH = 10, ballVelX = 0.1, ballVelY = 0.1;
+// bar above -> barY = 45
+// ball above -> ballY = 430 
+float barX = 200, barY = 15, barWidth = 80, barheight = 5;
+float ballX = 235, ballY = 50, ballWH = 10, ballVelX = 0.1, ballVelY = -0.1;
 const int brickAmount = 100;
 int score = 0, chances = 3, previousScore = 0, highestScore = 0;
 bool flag = true, flag2 = true;
+int scoreReqForSpeed = 200;
 
 
 struct bricks {
@@ -24,11 +26,12 @@ struct bricks {
 bricks bricksArray[brickAmount];
 
 void createBricks() {
-    float brickX = 41, brickY = 50;
+    //for brick down: brickY = 50 and brickY += 11
+    float brickX = 41, brickY = 430;
     for (int i = 0; i < brickAmount; i++) {
         if (brickX > 400) {
             brickX = 41;
-            brickY += 11;
+            brickY -= 11;
         }
         bricksArray[i].x = brickX;
         bricksArray[i].y = brickY;
@@ -36,7 +39,8 @@ void createBricks() {
         bricksArray[i].height = 10;
         brickX += 39.66;
     }
-    glColor3ub(0, 0, 255);
+    //glColor3ub(0, 0, 255);
+    glColor3ub(188, 74, 60);
     glBegin(GL_QUADS);
     for (int i = 0; i < brickAmount; i++) {
         if (bricksArray[i].isAlive == true) {
@@ -50,6 +54,41 @@ void createBricks() {
 }
 
 void print(int a) {
+    //Instructions
+    {
+        glRasterPos2f(560, 450);
+        string h = "Instructions ";
+        int len1 = h.length();
+        for (int i = 0; i < len1; i++) {
+            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, h[i]);
+        }
+        glRasterPos2f(490, 420);
+        string instr = "Use left and right arrow key to move the paddle. ";
+        len1 = instr.length();
+        for (int i = 0; i < len1; i++) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, instr[i]);
+        }
+        glRasterPos2f(490, 390);
+        instr = "Hitting the blue line will make you lose 1 life.";
+        len1 = instr.length();
+        for (int i = 0; i < len1; i++) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, instr[i]);
+        }
+        glRasterPos2f(490, 360);
+        instr = "You have 3 lives. The score resets after 3 lives.";
+        len1 = instr.length();
+        for (int i = 0; i < len1; i++) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, instr[i]);
+        }
+        glRasterPos2f(490, 330);
+        instr = "Hit all the bricks to win. Click to start.";
+        len1 = instr.length();
+        for (int i = 0; i < len1; i++) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, instr[i]);
+        }
+    }
+
+
     glRasterPos2f(490, 40);
     stringstream ss;
     ss << a;
@@ -124,13 +163,24 @@ void myDisplay(void) {
     glEnd();
 
     //Ball
-    glBegin(GL_QUADS);
+    glBegin(GL_POLYGON);
     glColor3ub(255, 0, 0);
     glVertex2f(ballX, ballY);
     glVertex2f(ballX + ballWH, ballY);
     glVertex2f(ballX + ballWH, ballY + ballWH);
     glVertex2f(ballX, ballY + ballWH);
     glEnd();
+
+
+    //death Zone
+    glBegin(GL_QUADS);
+    glColor3ub(35, 137, 218);
+    glVertex2f(0, 5);
+    glVertex2f(480, 5);
+    glVertex2f(480, 0);
+    glVertex2f(0, 0);
+    glEnd();
+
 
     //sidebar
     glBegin(GL_QUADS);
@@ -140,6 +190,7 @@ void myDisplay(void) {
     glVertex2f(485, 480);
     glVertex2f(485, 0);
     glEnd();
+
 
     print(score);
     createBricks();
@@ -176,15 +227,19 @@ bool checkCollision(float aX, float aY, float aW, float aH, float bX, float bY, 
 }
 
 void moveBall() {
-    if (score >= 300) {
-        ballVelX = 0.5;
-        ballVelY = 0.5;
+    cout << "(" << ballVelX << "," << ballVelY << ")\n";
+    if (score >= scoreReqForSpeed) {
+        float signX = ballVelX / abs(ballVelX);
+        float signY = ballVelY / abs(ballVelY);
+        ballVelX += 0.05*signX;
+        ballVelY += 0.05*signY;
+        scoreReqForSpeed += 200;
     }
     if (score >= 1000) {
         barX = 200;
-        barY = 465;
+        barY = 15;
         ballX = 235;
-        ballY = 430;
+        ballY = 50;
         ballVelX = 0;
         ballVelY = 0;
         float brickX = 2, brickY = 2;
@@ -239,15 +294,17 @@ void moveBall() {
         else if (ballX + ballWH > 480) {
             ballVelX = -ballVelX;
         }
-        if (ballY < 0) {
+        //changed for losing state
+        if (ballY + ballWH > 480) {
             ballVelY = -ballVelY;
         }
-        else if (ballY + ballWH > 480) {
+        else if (ballY < 0) {
             if (chances <= 1) {
+                //reset
                 barX = 200;
-                barY = 465;
+                barY = 15;
                 ballX = 235;
-                ballY = 430;
+                ballY = 50;
                 ballVelX = 0;
                 ballVelY = 0;
                 float brickX = 2, brickY = 2;
@@ -275,9 +332,10 @@ void moveBall() {
             }
             else {
                 chances--;
+                //reset only ball
                 ballX = 235;
-                ballY = 430;
-                if (ballVelY < 0) {
+                ballY = 50;
+                if (ballVelY > 0) {
                     ballVelY = -ballVelY;
                 }
                 Sleep(3000);
@@ -316,9 +374,9 @@ void mouse(int button, int state, int x, int y) {
     case GLUT_LEFT_BUTTON:
         if (state == GLUT_DOWN) {
             flag = true;
-            if (ballVelX <= 0 && ballVelY <= 0) {
-                ballVelX = 0.3;
-                ballVelY = 0.3;
+            if (ballVelX <= 0 && ballVelY >= 0) {
+                ballVelX = 0.1;
+                ballVelY = -0.1;
             }
             glutIdleFunc(moveBall);
         }
