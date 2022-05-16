@@ -1,4 +1,3 @@
-#include<windows.h>
 #include<stdio.h>
 #include<iostream>
 #include<GL/glut.h>
@@ -118,10 +117,6 @@ void print(int a) {
     for (int i = 0; i < highScore.length(); i++) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, highScore[i]);
     }
-    /*    string
-        for(int i = 0; i < highScore.length(); i++){
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, highScore[i]);
-        }*/
 }
 
 void message(bool a) {
@@ -139,7 +134,7 @@ void message(bool a) {
 
 void completeMessage(bool a) {
     if (a == false) {
-        glRasterPos2f(20, 400);
+        glRasterPos2f(20, 300);
         stringstream ss;
         ss << score;
         string s = "STAGE COMPLETE. Your score: " + ss.str() + ". Click to start new game.";
@@ -197,7 +192,6 @@ void myDisplay(void) {
     glColor3ub(0, 0, 0);
     message(flag);
     completeMessage(flag2);
-    /**/
 
     glutSwapBuffers();
 }
